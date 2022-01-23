@@ -1,15 +1,18 @@
-function map(fn, array) {
-  if (array.length == 0) return [];
-  return [fn(array[0])].concat(map(fn, array.slice(1)));
-}
-
 function concat(array1, array2) {
   return array1.concat(array2);
 }
 
+const head = (array) => array[0];
+const tail = (array) => array.slice(1);
+
+function map(fn, array) {
+  if (array.length == 0) return [];
+  return [fn(head(array))].concat(map(fn, tail(array)));
+}
+
 function mapv2(fn, array) {
   if (array.length === 0) return [];
-  return concat([fn(array[0])], mapv2(fn, array.slice(1)));
+  return concat([fn(head(array))], mapv2(fn, tail(array)));
 }
 
 let myArray = [1, 2, 3, 4, 5];
@@ -28,4 +31,4 @@ let result2 = map((n) => n / 2, myArray); //?
 
 //================
 
-let result3 = mapv2(n => n * 5, myArray) //?
+let result3 = mapv2((n) => n * 5, myArray); //?
